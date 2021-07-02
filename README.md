@@ -16,7 +16,10 @@ At the end of the day, a new video is created from the images and published onto
 #!/bin/bash
 raspistill -w 648 -h 486 -o - | mosquitto_pub -h 192.168.10.253 -t pi0/camera -s
 ```
-
+#### crontab
+```
+* * * * * /home/pi/camera.sh
+```
 ## Cloud code
 #### subscribe_webcam.sh
 ```
@@ -34,4 +37,8 @@ fi
 
 [ ! -d $TEMPDIR ] && mkdir -p $TEMPDIR
 mosquitto_sub -h rb2vpn.robertoarcomano.com -t pi0/camera -C 1 > $TEMPDIR/webcam$SEQ.jpg
+```
+#### crontab
+```
+* * * * * /home/ubuntu/subscribe_webcam.sh
 ```
